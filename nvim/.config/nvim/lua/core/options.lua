@@ -21,7 +21,7 @@ vim.opt.smartcase = true
 
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 10
 -- vim.opt.signcolumn = "yes"
 
 vim.opt.backspace = { "start", "eol", "indent" }
@@ -30,7 +30,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 vim.opt.updatetime = 50
--- vim.opt.colorcolumn = "90"
+vim.opt.colorcolumn = "90"
 
 vim.opt.clipboard:append("unnamedplus")
 
