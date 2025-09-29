@@ -47,3 +47,8 @@ vim.keymap.set("n", "<leader>fp", function()
 	vim.fn.setreg("+", filePath)
 	print("File path copied to clipboard: " .. filePath)
 end, { desc = "copy file path to clipboard" })
+
+-- Spotify controls
+vim.keymap.set("n", "<C-s>yn", "<cmd>!spotify next<CR>", { desc = "Next music on Spotify" })
+vim.keymap.set("n", "<C-s>yb", "<cmd>!spotify back<CR>", { desc = "Previous music on Spotify" })
+vim.keymap.set("n", "<C-s>pp", "<cmd>!spotify p<CR>", { desc = "Toggle play/pause" })

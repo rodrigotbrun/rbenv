@@ -14,6 +14,13 @@ return {
 			exclude = { "latex" },
 		},
 		picker = {
+			hidden = true,
+			ignored = true,
+			exclude = {
+				"**/.git/*",
+				"**/node_modules/*",
+				"**/vendor/*",
+			},
 			enabled = true,
 			matchers = {
 				frecency = true,
@@ -123,7 +130,11 @@ return {
 		{
 			"<leader>P",
 			function()
-				require("snacks").picker.files({ layout = "ivy" })
+				require("snacks").picker.files({
+					layout = "ivy",
+					hidden = true,
+					ignored = true,
+				})
 			end,
 			desc = "Find files",
 		},

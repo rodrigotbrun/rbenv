@@ -78,7 +78,7 @@ stow -t ~ tmux zsh nvim
 
 # install my nvim
 
-
+npm install -g spotify-cli-mac
 
 
 
