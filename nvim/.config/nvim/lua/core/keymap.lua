@@ -55,3 +55,6 @@ end, { desc = "copy file path to clipboard" })
 vim.keymap.set("n", "<C-s>yn", "<cmd>!spotify next<CR>", { desc = "Next music on Spotify" })
 vim.keymap.set("n", "<C-s>yb", "<cmd>!spotify back<CR>", { desc = "Previous music on Spotify" })
 vim.keymap.set("n", "<C-s>pp", "<cmd>!spotify p<CR>", { desc = "Toggle play/pause" })
+
+vim.keymap.set("i", "jj", "<Esc>", { noremap = false })
+vim.keymap.set("i", "jk", "<Esc>", { noremap = false })
