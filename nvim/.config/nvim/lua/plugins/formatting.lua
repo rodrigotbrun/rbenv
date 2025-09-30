@@ -38,6 +38,7 @@ return {
 				liquid = { "prettier" },
 				lua = { "stylua" },
 				php = { "pint" },
+				blade = { "blade-formatter" },
 				-- python = { "black" },
 				markdown = { "prettier", "markdown-toc" },
 				-- ["markdown.mdx"] = { "prettier", "markdownlint", "markdown-toc" },

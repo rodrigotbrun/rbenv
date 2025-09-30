@@ -66,3 +66,4 @@ vim.keymap.set({ "x", "n", "i" }, '<C-w>"', "<C-w>s")
 
 vim.keymap.set("n", "<C-w>,", "<cmd>BufferPrevious<CR>", opts)
 vim.keymap.set("n", "<C-w>.", "<cmd>BufferNext<CR>", opts)
+vim.keymap.set("n", "<C-w>x", "<cmd>BufferClose<CR>", opts)
