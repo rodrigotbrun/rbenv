@@ -39,6 +39,8 @@ return {
 				lua = { "stylua" },
 				php = { "pint" },
 				blade = { "blade-formatter" },
+				sh = { "shfmt" },
+				bash = { "shfmt" },
 				-- python = { "black" },
 				markdown = { "prettier", "markdown-toc" },
 				-- ["markdown.mdx"] = { "prettier", "markdownlint", "markdown-toc" },

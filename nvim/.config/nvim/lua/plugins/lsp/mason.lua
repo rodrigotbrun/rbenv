@@ -1,4 +1,4 @@
-return {
+return({
 	"williamboman/mason.nvim",
 	lazy = false,
 	dependencies = {
@@ -51,6 +51,7 @@ return {
 				-- "eslint",
 				"marksman",
 				"phpactor",
+				"shfmt",
 			},
 		})
 
@@ -70,4 +71,4 @@ return {
 			-- moved lsp configuration settings back into lspconfig.lua file
 		})
 	end,
-}
+})
