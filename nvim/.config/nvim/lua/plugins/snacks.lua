@@ -5,6 +5,11 @@ return {
 	opts = {
 		explorer = {
 			enabled = true,
+			follow_file = true,
+			auto_close = false,
+			git_status = true,
+			git_status_open = false,
+			git_untracked = true,
 			layout = {
 				cycle = false,
 			},
