@@ -58,3 +58,6 @@ vim.keymap.set("n", "<C-s>pp", "<cmd>!spotify p<CR>", { desc = "Toggle play/paus
 
 vim.keymap.set("i", "jj", "<Esc>", { noremap = false })
 vim.keymap.set("i", "jk", "<Esc>", { noremap = false })
+
+vim.keymap.set({ "x", "n", "i" }, "<C-w>%", "<C-w>v")
+vim.keymap.set({ "x", "n", "i" }, '<C-w>"', "<C-w>s")
