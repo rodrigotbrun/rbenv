@@ -165,33 +165,7 @@ return {
 		})
 		vim.lsp.enable("ts_ls")
 
-		-- gopls
-		vim.lsp.config("gopls", {
-			settings = {
-				gopls = {
-					analyses = {
-						unusedparams = true,
-					},
-					staticcheck = true,
-					gofumpt = true,
-				},
-			},
-		})
-		vim.lsp.enable("gopls")
-
 		-- php
-		-- vim.lsp.config("intelephense", {
-		-- 	settings = {
-		-- 		intelephense = {
-		-- 			telemetry = {
-		-- 				enabled = true,
-		-- 			},
-		-- 		},
-		-- 	},
-		-- })
-		--
-		-- vim.lsp.enable("intelephense")
-
 		vim.lsp.config("phpactor", { settings = {
 			phpactor = {},
 		} })

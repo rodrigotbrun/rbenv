@@ -1,4 +1,4 @@
-return({
+return {
 	"williamboman/mason.nvim",
 	lazy = false,
 	dependencies = {
@@ -43,7 +43,6 @@ return({
 				"html",
 				"cssls",
 				"tailwindcss",
-				"gopls",
 				"angularls",
 				"emmet_ls",
 				"emmet_language_server",
@@ -71,4 +70,4 @@ return({
 			-- moved lsp configuration settings back into lspconfig.lua file
 		})
 	end,
-})
+}
