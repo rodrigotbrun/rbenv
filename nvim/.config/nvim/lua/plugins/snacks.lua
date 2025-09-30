@@ -94,6 +94,9 @@ return {
 				--},
 			},
 		},
+		terminal = {
+			enabled = true,
+		},
 	},
 	keys = {
 		{
@@ -158,6 +161,14 @@ return {
 				require("snacks").picker.keymaps({ layout = "ivy" })
 			end,
 			desc = "Show keybindings",
+		},
+
+		{
+			"<C-t>",
+			function()
+				require("snacks").terminal.toggle()
+			end,
+			desc = "Toggle terminal",
 		},
 
 		{
