@@ -50,6 +50,7 @@ brew install qmk
 brew install ripgrep
 
 brew install lazygit
+brew install lazydocker
 brew install starship
 brew install tree-sitter
 brew install tree
