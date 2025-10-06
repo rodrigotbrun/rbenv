@@ -6,6 +6,7 @@ alias ll="ls -lah"
 alias t="tree"
 alias cat="bat"
 alias vim="nvim"
+alias nano="nvim"
 
 # Git
 alias gt="git"
@@ -13,6 +14,7 @@ alias ga="git add ."
 alias gs="git status -s"
 alias gc='git commit -m'
 alias glog='git log --oneline --graph --all'
+alias gp='git push'
 
 # tree
 alias tree="tree -L 3 -a -I '.git' --charset X "
@@ -28,7 +30,6 @@ alias lg="lazygit"
 # My common dev dirs and config editors/sources
 alias backend="cd ~/dev/backend/"
 alias rn="cd ~/dev/rn/"
-alias tmuxconf="nvim ~/.tmux.conf"
 alias znano="nvim ~/.zshrc"
 alias zsource="source ~/.zshrc"
 
@@ -36,4 +37,9 @@ alias zsource="source ~/.zshrc"
 alias h2='$(npm prefix -s)/node_modules/.bin/shopify hydrogen'
 
 alias sail=./vendor/bin/sail
-alias envoy=php ./vendor/bin/envoy
+alias envoy="php ./vendor/bin/envoy"
+alias dep="envoy run deploy"
+
+# tmux
+alias devmux='tmux attach-session -t dev'
+alias tmuxconf="nvim ~/.tmux.conf"
