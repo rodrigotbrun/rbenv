@@ -41,5 +41,4 @@ alias envoy="php ./vendor/bin/envoy"
 alias dep="envoy run deploy"
 
 # tmux
-alias devmux='tmux attach-session -t dev'
 alias tmuxconf="nvim ~/.tmux.conf"
