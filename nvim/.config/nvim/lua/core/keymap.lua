@@ -62,6 +62,13 @@ vim.keymap.set("i", "jk", "<Esc>", { noremap = false })
 vim.keymap.set({ "x", "n", "i" }, "<C-w>%", ":vsplit<CR>")
 vim.keymap.set({ "x", "n", "i" }, '<C-w>"', "<C-w>s")
 
+-- file nav
+
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-f>", "<C-f>zz")
+vim.keymap.set("n", "<C-b>", "<C-b>zz")
+
 -- tabs nav
 
 vim.keymap.set("n", "<C-w>,", "<cmd>BufferPrevious<CR>", opts)
