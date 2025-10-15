@@ -34,4 +34,4 @@ eval "$(fzf --zsh)"
 export ZPLUG_HOME=/opt/homebrew/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
-source $RBHOME/.zsh-plugins
+source ~/.zsh-plugins

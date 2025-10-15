@@ -8,6 +8,10 @@ alias cat="bat"
 alias vim="nvim"
 alias nano="nvim"
 
+# zsh
+alias zi="zplug install"
+alias zu="zplug update"
+
 # Git
 alias gt="git"
 alias ga="git add ."
