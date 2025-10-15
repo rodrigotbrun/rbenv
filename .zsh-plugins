@@ -1,0 +1,4 @@
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug "dracula/zsh", as:theme
+
+zplug load

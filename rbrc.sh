@@ -1,6 +1,7 @@
 #/bin/bash
-
 # source your zshrc with this at the end
+
+export RBHOME=~/.rbdev/
 
 export TERM=xterm
 
@@ -28,3 +29,9 @@ fi
 }
 
 eval "$(fzf --zsh)"
+
+# zsh plugin manager
+export ZPLUG_HOME=/opt/homebrew/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+source $RBHOME/.zsh-plugins

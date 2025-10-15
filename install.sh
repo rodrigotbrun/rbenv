@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export RBHOME=~/.rbdev
+
 # Install xCode cli tools
 if [[ "$(uname)" == "Darwin" ]]; then
     if xcode-select -p &>/dev/null; then
@@ -32,7 +34,7 @@ brew install dysk
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 brew install coreutils
-
+brew install zplug
 brew install stow
 brew install pngpaste
 brew install zsh-autosuggestions
@@ -80,8 +82,4 @@ stow -t ~ tmux zsh nvim
 # install my nvim
 
 npm install -g spotify-cli-mac
-
-
-
-
 
