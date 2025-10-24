@@ -7,7 +7,6 @@ alias t="tree"
 alias cat="bat"
 alias vim="nvim"
 alias nano="nvim"
-alias z=zoxide
 
 # zsh
 alias zi="zplug install"
