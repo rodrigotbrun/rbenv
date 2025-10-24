@@ -52,11 +52,15 @@ brew install qmk
 brew install ripgrep
 
 brew install lazygit
+brew install lazykube
 brew install lazydocker
 brew install starship
 brew install tree-sitter
 brew install tree
 brew install borders
+
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
 
 brew install --cask font-hack-nerd-font
 brew install --cask font-jetbrains-mono-nerd-font
@@ -78,8 +82,4 @@ echo 'export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"' >> ~/.zshr
 echo 'source ~/.rbdev/rbrc.sh' >> ~/.zshrc
 
 stow -t ~ tmux zsh nvim
-
-# install my nvim
-
-npm install -g spotify-cli-mac
 
