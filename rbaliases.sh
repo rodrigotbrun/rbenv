@@ -7,6 +7,7 @@ alias t="tree"
 alias cat="bat"
 alias vim="nvim"
 alias nano="nvim"
+alias z=zoxide
 
 # zsh
 alias zi="zplug install"
@@ -28,7 +29,6 @@ alias dtree="tree -L 3 -a -d -I '.git' --charset X "
 alias rb="ssh rb"
 alias rbdev="cd ~/.rbdev/ && nvim"
 
-# lazygit
 alias lg="lazygit"
 
 # My common dev dirs and config editors/sources
