@@ -12,6 +12,9 @@ alias nano="nvim"
 alias zi="zplug install"
 alias zu="zplug update"
 
+# aerospace
+alias ae="aerospace"
+
 # Git
 alias gt="git"
 alias ga="git add ."

@@ -47,7 +47,7 @@ export FZF_CTRL_R_OPTS="
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
   --style full
-  --walker-skip .git,node_modules,target,vendor
+  --walker-skip .git,node_modules,target,vendor,.cache
   --preview 'bat -n --color=always {}'
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
