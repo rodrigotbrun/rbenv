@@ -82,9 +82,5 @@ echo 'export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"' >> ~/.zshr
 
 echo 'source ~/.rbdev/rbrc.sh' >> ~/.zshrc
 
-<<<<<<< HEAD
-stow -t ~ tmux zsh nvim
-=======
 stow -t ~ tmux zsh nvim aerospace
->>>>>>> tui-installer
 
