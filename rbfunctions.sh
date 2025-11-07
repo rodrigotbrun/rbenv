@@ -7,7 +7,7 @@ towebp() {
     local input_file="$1"
     local output_file="${input_file%.*}.webp"
     magick "$input_file" \
-        -quality 77 \
+        -quality ${2:-77} \
         -define webp:method=6 \
         -define webp:auto-filter=true \
         -sampling-factor 4:2:0 \

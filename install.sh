@@ -65,6 +65,7 @@ brew install hashicorp/tap/terraform
 brew install --cask font-hack-nerd-font
 brew install --cask font-jetbrains-mono-nerd-font
 brew install --cask font-sf-pro
+brew install --cask nikitabobko/tap/aerospace
 
 # mac settings
 defaults write NSGlobalDomain KeyRepeat -int 2
@@ -81,5 +82,9 @@ echo 'export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"' >> ~/.zshr
 
 echo 'source ~/.rbdev/rbrc.sh' >> ~/.zshrc
 
+<<<<<<< HEAD
 stow -t ~ tmux zsh nvim
+=======
+stow -t ~ tmux zsh nvim aerospace
+>>>>>>> tui-installer
 
