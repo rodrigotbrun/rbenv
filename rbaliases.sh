@@ -45,6 +45,7 @@ alias h2='$(npm prefix -s)/node_modules/.bin/shopify hydrogen'
 alias sail=./vendor/bin/sail
 alias envoy="php ./vendor/bin/envoy"
 alias dep="envoy run deploy"
+alias pest=./vendor/bin/pest
 
 # tmux
 alias tmuxconf="nvim ~/.tmux.conf"
