@@ -21,6 +21,10 @@ echo "Installing homebrew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew analytics off
 
+brew install node
+
+npm i -g eas-cli
+
 brew tap homebrew/cask-fonts
 brew tap FelixKratz/formulae
 
