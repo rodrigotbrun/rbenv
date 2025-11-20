@@ -24,3 +24,9 @@ convert_all_png_to_webp() {
         fi
     done
 }
+
+csvdb() {
+
+	sqlite3 $1".db" ".import --csv '$2' '$1'" && open $1".db"
+
+}

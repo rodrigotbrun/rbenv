@@ -219,6 +219,11 @@ shift-down = ['volume set 0', 'mode main']
 [workspace-to-monitor-force-assignment]
 1 = 'main'
 2 = 'secondary'
+3 = 'main'
+4 = 'secondary'
+5 = 'main'
+6 = 'secondary'
+7 = 'main'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.ScreenSharing'
@@ -246,6 +251,10 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.electron.asana'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'de.beyondco.herd'
 run = 'layout floating'
 
 
