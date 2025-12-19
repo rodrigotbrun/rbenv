@@ -32,6 +32,7 @@ brew install neovim
 brew install gitmux
 brew install dysk
 brew install lsd
+brew install direnv
 
 # install tmux plugin manager (tpm)
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -70,6 +71,7 @@ brew install --cask font-hack-nerd-font
 brew install --cask font-jetbrains-mono-nerd-font
 brew install --cask font-sf-pro
 brew install --cask nikitabobko/tap/aerospace
+brew install --cask dbeaver-community
 
 # mac settings
 defaults write NSGlobalDomain KeyRepeat -int 2
