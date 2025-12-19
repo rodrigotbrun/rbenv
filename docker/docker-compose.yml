@@ -3,7 +3,7 @@ services:
     portal:
         image: nginx:alpine
         ports:
-            - 80:80
+            - 81:80
         volumes:
             - ./index.html:/usr/share/nginx/html/index.html:ro
         networks:
