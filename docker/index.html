@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>BrunDev – Local Services</title>
@@ -54,6 +55,15 @@
             gap: 0.75rem;
         }
 
+        .card > .card {
+            margin-top: auto;
+            background: #00000070;
+            padding-top:0;
+            padding-bottom:0;
+            height: 200px !important;
+            overflow: auto;
+        }
+
         .card h2 {
             margin: 0;
             font-size: 1.25rem;
@@ -69,7 +79,8 @@
         }
 
         .actions {
-            margin-top: auto;
+            margin-top: 10px;
+            margin-bottom: 10px;
             display: flex;
             gap: 0.75rem;
             flex-wrap: wrap;
@@ -102,8 +113,13 @@
             font-size: 0.8rem;
             color: var(--muted);
         }
+
+        code {
+            font-family: monospace;
+        }
     </style>
 </head>
+
 <body>
 
     <h1>BrunDev</h1>
@@ -122,6 +138,14 @@
             </div>
             <div class="actions">
             </div>
+            <div class="card">
+                <pre><code>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=
+DB_USERNAME=root
+DB_PASSWORD=password</code></pre>
+            </div>
         </div>
 
         <!-- Redis -->
@@ -129,13 +153,19 @@
             <h2>Redis 8</h2>
             <div class="info">
                 Host: <code>127.0.0.1</code><br>
-                Port: <code>6379</code>
-				Web UI: <code>5540</code>
+                Port: <code>6379</code><br>
+                Web UI: <code>5540</code>
             </div>
-            <div class="actions"> 
-				<a class="button" href="http://localhost:5540" target="_blank">
+            <div class="actions">
+                <a class="button" href="http://localhost:5540" target="_blank">
                     Open RedisInsight
                 </a>
+            </div>
+            <div class="card">
+                <pre><code>REDIS_CLIENT=phpredis
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379</code></pre>
             </div>
         </div>
 
@@ -151,6 +181,16 @@
                 <a class="button" href="http://localhost:8025" target="_blank">
                     Open Mailpit
                 </a>
+            </div>
+            <div class="card">
+                <pre><code>MAIL_MAILER=smtp
+MAIL_SCHEME=null
+MAIL_HOST=127.0.0.1
+MAIL_PORT=1025
+MAIL_USERNAME=dev@localhost.test
+MAIL_PASSWORD=password
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"</code></pre>
             </div>
         </div>
 
@@ -171,6 +211,14 @@
                     API
                 </a>
             </div>
+            <div class="card">
+                <pre><code>
+AWS_ACCESS_KEY_ID=key
+AWS_SECRET_ACCESS_KEY=secret
+AWS_DEFAULT_REGION=dev
+AWS_BUCKET=
+AWS_USE_PATH_STYLE_ENDPOINT=false</code></pre>
+            </div>
         </div>
 
     </div>
@@ -180,5 +228,5 @@
     </footer>
 
 </body>
-</html>
 
+</html>

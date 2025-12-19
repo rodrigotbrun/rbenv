@@ -55,6 +55,10 @@ brew install make
 brew install qmk
 brew install ripgrep
 
+brew install colima
+brew install docker
+brew install docker-credential-helper
+
 brew install lazygit
 brew install lazykube
 brew install lazydocker
@@ -88,5 +92,5 @@ echo 'export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"' >> ~/.zshr
 
 echo 'source ~/.rbdev/rbrc.sh' >> ~/.zshrc
 
-stow -t ~ tmux zsh nvim aerospace
+stow -t ~ tmux zsh nvim aerospace alacritty
 

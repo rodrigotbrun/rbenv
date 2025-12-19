@@ -58,3 +58,6 @@ export FZF_CTRL_T_OPTS="
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
 export FZF_DEFAULT_OPTS='--height 40% --tmux bottom,40% --layout reverse --border top --style full'
+
+export CURSOR_CONFIG_DIR="~/.rbdev/ide/vscode-based/"
+

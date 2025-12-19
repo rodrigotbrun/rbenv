@@ -1,0 +1,51 @@
+{
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "symbols.hidesExplorerArrows": false,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontSize": 14,
+    "editor.lineHeight": 1.85,
+    "editor.rulers": [80, 140],
+    "editor.renderLineHighlight": "all",
+    "editor.fontLigatures": true,
+    "editor.semanticHighlighting.enabled": false,
+    "editor.minimap.enabled": false,
+    "editor.scrollbar.vertical": "auto",
+    "editor.scrollbar.horizontal": "hidden",
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.ts": "${capture}.js",
+        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+        "*.jsx": "${capture}.js",
+        "*.tsx": "${capture}.ts",
+        ".env": ".env*, env.d.ts",
+        "tsconfig.json": "tsconfig.*.json",
+        "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, .detox*, .eslint*, .prettier*, metro*, babel.config*",
+        "tailwind.config.js": "tailwind.config.*,nativewind*, global.css",
+        "react-native.config.js": "react-native.config.*, app.json, .watchman*, firebase.json",
+        "Gemfile": "Gemfile, Gemfile.lock"
+    },
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Fonts",
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[liquid]": {
+        "editor.defaultFormatter": "Shopify.theme-check-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
