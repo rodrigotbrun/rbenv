@@ -31,6 +31,18 @@ services:
         networks:
             - brun
 
+    redis-ui:
+        image: redis/redisinsight
+        ports:
+            - 5540:5540
+        restart: unless-stopped
+        volumes:
+            - ~/volumes/redisinsight:/data
+        networks:
+            - brun
+        depends_on:
+            - redis
+
     mailpit:
         image: axllent/mailpit
         restart: unless-stopped
