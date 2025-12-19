@@ -6,7 +6,7 @@ services:
             - 3306:3306
         restart: unless-stopped
         volumes:
-            - /Users/brun/volumes/mysql:/var/lib/mysql
+            - ~/volumes/mysql:/var/lib/mysql
         networks:
             - brun
         environment:
@@ -18,7 +18,7 @@ services:
             - 6379:6379
         restart: unless-stopped
         volumes:
-            - /Users/brun/volumes/redis:/data
+            - ~/volumes/redis:/data
         networks:
             - brun
 
@@ -26,7 +26,7 @@ services:
         image: axllent/mailpit
         restart: unless-stopped
         volumes:
-            - /Users/brun/volumes/mailpit:/data
+            - ~/volumes/mailpit:/data
         networks:
             - brun
         environment:
