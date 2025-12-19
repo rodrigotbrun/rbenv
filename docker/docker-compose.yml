@@ -1,6 +1,15 @@
-name: brundev
+name: brun
 services:
-    brun-mysql:
+    portal:
+        image: nginx:alpine
+        ports:
+            - 80:80
+        volumes:
+            - ./index.html:/usr/share/nginx/html/index.html:ro
+        networks:
+            - brun
+        restart: unless-stopped
+    mysql:
         image: mysql:8
         ports:
             - 3306:3306
@@ -12,7 +21,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: password
 
-    brun-redis:
+    redis:
         image: redis:8
         ports:
             - 6379:6379
@@ -22,7 +31,7 @@ services:
         networks:
             - brun
 
-    brun-mailpit:
+    mailpit:
         image: axllent/mailpit
         restart: unless-stopped
         volumes:
@@ -35,7 +44,7 @@ services:
             - 8025:8025
             - 1025:1025
 
-    brun-rustfs:
+    rustfs:
         image: rustfs/rustfs
         ports:
             - 9000:9000
