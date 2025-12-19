@@ -14,8 +14,8 @@ return {
 				local opts = { buffer = ev.buf, silent = true }
 
 				-- Keymaps
-				-- opts.desc = "Show LSP references"
-				-- vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
+				opts.desc = "Show LSP references"
+				vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
 				--
 				-- opts.desc = "Go to declaration"
 				-- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
@@ -29,6 +29,12 @@ return {
 				-- opts.desc = "Show LSP type definitions"
 				-- vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 				--
+
+				opts.desc = "See LSP type definitions"
+				vim.keymap.set({ "n", "v" }, "<leader>gt", function()
+					vim.lsp.buf.type_definition()
+				end, opts)
+
 				opts.desc = "See available code actions"
 				vim.keymap.set({ "n", "v" }, "<leader>ca", function()
 					vim.lsp.buf.code_action()
@@ -49,8 +55,16 @@ return {
 				opts.desc = "Restart LSP"
 				vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
 
-				-- vim.keymap.set("i", "<C-h>", function()
-				-- 	vim.lsp.buf.signature_help()
+				vim.keymap.set("i", "<C-h>", function()
+					vim.lsp.buf.signature_help()
+				end, opts)
+
+				-- vim.keymap.set("i", "<C-Space>", function()
+				-- 	-- vim.lsp.omnifunc(0, 0)
+				-- 	--
+				-- 	vim.lsp.completion()
+				--
+				-- 	vim.lsp.
 				-- end, opts)
 			end,
 		})
