@@ -19,13 +19,11 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # install homebrew
 echo "Installing homebrew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 brew analytics off
 
 brew install node
 
-npm i -g eas-cli
-
-brew tap homebrew/cask-fonts
 brew tap FelixKratz/formulae
 
 brew install git
@@ -33,6 +31,7 @@ brew install tmux
 brew install neovim
 brew install gitmux
 brew install dysk
+brew install lsd
 
 # install tmux plugin manager (tpm)
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -62,6 +61,7 @@ brew install starship
 brew install tree-sitter
 brew install tree
 brew install borders
+brew install imagemagick
 
 brew tap hashicorp/tap
 brew install hashicorp/tap/terraform

@@ -1,0 +1,61 @@
+name: brundev
+services:
+    brun-mysql:
+        image: mysql:8
+        ports:
+            - 3306:3306
+        restart: unless-stopped
+        volumes:
+            - /Users/brun/volumes/mysql:/var/lib/mysql
+        networks:
+            - brun
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+
+    brun-redis:
+        image: redis:8
+        ports:
+            - 6379:6379
+        restart: unless-stopped
+        volumes:
+            - /Users/brun/volumes/redis:/data
+        networks:
+            - brun
+
+    brun-mailpit:
+        image: axllent/mailpit
+        restart: unless-stopped
+        volumes:
+            - /Users/brun/volumes/mailpit:/data
+        networks:
+            - brun
+        environment:
+            TZ: America/Sao_Paulo
+        ports:
+            - 8025:8025
+            - 1025:1025
+
+    brun-rustfs:
+        image: rustfs/rustfs
+        ports:
+            - 9000:9000
+            - 9001:9001
+        restart: unless-stopped
+        environment:
+            RUSTFS_ACCESS_KEY: key
+            RUSTFS_SECRET_KEY: secret
+        volumes:
+            - rustfs-data:/data
+            - rustfs-logs:/logs
+        networks:
+            - brun
+
+networks:
+    brun:
+        driver: bridge
+        driver_opts:
+            com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
+
+volumes:
+    rustfs-data:
+    rustfs-logs:
