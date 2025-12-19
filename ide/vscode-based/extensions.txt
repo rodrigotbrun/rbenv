@@ -1,0 +1,5 @@
+prettier
+shopify liquid (official)
+min theme
+symbols
+Auto Rename Tag

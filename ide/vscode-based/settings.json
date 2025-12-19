@@ -47,5 +47,7 @@
     },
     "[css]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "workbench.colorTheme": "Min Dark",
+    "workbench.iconTheme": "symbols"
 }
