@@ -55,9 +55,7 @@ brew install make
 brew install qmk
 brew install ripgrep
 
-brew install colima
-brew install docker
-brew install docker-credential-helper
+brew install colima docker docker-compose docker-credential-helper
 
 brew install lazygit
 brew install lazykube
