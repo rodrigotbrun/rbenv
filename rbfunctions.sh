@@ -30,3 +30,13 @@ csvdb() {
 	sqlite3 $1".db" ".import --csv '$2' '$1'" && open $1".db"
 
 }
+
+
+dservices() {
+	cd ~/.rbdev/dev-env-services
+	docker compose "$@"
+	cd -
+}
+
+
+

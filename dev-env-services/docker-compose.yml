@@ -71,6 +71,13 @@ services:
         networks:
             - brun
 
+    docker-registry:
+        image: registry:3
+        ports:
+            - 5000:5000
+        volumes:
+            - ~/.registry/storage:/var/lib/registry
+
 networks:
     brun:
         driver: bridge

@@ -265,3 +265,14 @@ run = 'layout floating'
 if.app-id = 'com.apple.DiskUtility'
 run = 'layout floating'
 
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.parallels.winapp.7cacd94afc723e1f871980abeae3ca0c.b34ac89c1bd74e7c84d8d2e02b204db7.fs'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.parallels.webinstaller'
+run = 'layout floating'
