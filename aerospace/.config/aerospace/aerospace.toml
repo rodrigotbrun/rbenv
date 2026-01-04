@@ -101,6 +101,8 @@ alt-comma = 'layout accordion horizontal vertical'
 
 alt-cmd-enter = 'fullscreen'
 
+cmd-shift-g = 'layout floating tiling'
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
 alt-shift-h = 'focus --boundaries all-monitors-outer-frame left'
 alt-shift-j = 'focus --boundaries all-monitors-outer-frame down'
