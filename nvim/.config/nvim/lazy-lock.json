@@ -1,6 +1,7 @@
 {
   "LuaSnip": { "branch": "master", "commit": "458560534a73f7f8d7a11a146c801db00b081df0" },
   "auto-session": { "branch": "main", "commit": "af683b2cb176aa8e0cddb3cdc2dada21f09bb09b" },
+  "aw-watcher.nvim": { "branch": "master", "commit": "c9cdc2285d384f4e2717bd3734435dfc63ff6f48" },
   "barbar.nvim": { "branch": "master", "commit": "53b5a2f34b68875898f0531032fbf090e3952ad7" },
   "cmp-buffer": { "branch": "main", "commit": "b74fab3656eea9de20a9b8116afa3cfc4ec09657" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "bd5a7d6db125d4654b50eeae9f5217f24bb22fd3" },
@@ -31,6 +32,7 @@
   "mini.splitjoin": { "branch": "main", "commit": "0826fa1cf68a2db309b6208232f41b2a45360216" },
   "mini.surround": { "branch": "main", "commit": "aec6ed2902a2fd809e3c2fe79ee4568791285201" },
   "mini.trailspace": { "branch": "main", "commit": "e0265c5ad106cf3fa7194c024e48d20b13b33006" },
+  "monokai-pro.nvim": { "branch": "master", "commit": "8d43e7746754c2dc6e8b797cbcdd361b46086675" },
   "neodev.nvim": { "branch": "main", "commit": "46aa467dca16cf3dfe27098042402066d2ae242d" },
   "noice.nvim": { "branch": "main", "commit": "0427460c2d7f673ad60eb02b35f5e9926cf67c59" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },

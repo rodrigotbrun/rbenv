@@ -26,6 +26,8 @@ brew install node
 
 brew tap FelixKratz/formulae
 
+npm install -g ios-deploy
+
 brew install git
 brew install tmux
 brew install neovim
