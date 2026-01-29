@@ -59,3 +59,5 @@ export FZF_DEFAULT_OPTS='--height 40% --tmux bottom,40% --layout reverse --borde
 
 export CURSOR_CONFIG_DIR="~/.rbdev/ide/vscode-based/"
 
+HOMEBREW_NO_AUTO_UPDATE=1
+HOMEBREW_NO_ENV_HINTS=1

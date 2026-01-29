@@ -7,6 +7,7 @@ alias t="tree"
 alias cat="bat"
 alias vim="nvim"
 alias nano="nvim"
+alias a="php artisan"
 
 # zsh
 alias zi="zplug install"

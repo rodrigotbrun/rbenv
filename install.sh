@@ -92,5 +92,4 @@ echo 'export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"' >> ~/.zshr
 
 echo 'source ~/.rbdev/rbrc.sh' >> ~/.zshrc
 
-stow -t ~ tmux zsh nvim aerospace alacritty
 
