@@ -2,5 +2,7 @@
 
 stow -t ~ tmux zsh nvim aerospace alacritty 
 
-# macOS launchd things
-stow -t ~ . -d system/macos/launchd -v
+if [[ "$(uname)" == "Darwin" ]]; then
+	# macOS launchd things
+	stow -t ~ . -d system/macos/launchd -v
+fi
