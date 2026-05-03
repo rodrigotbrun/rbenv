@@ -38,7 +38,7 @@ source ~/.zsh-plugins
 
 eval "$(zoxide init zsh)"
 
-eval $(eas autocomplete:script zsh)
+# eval $(eas autocomplete:script zsh)
 
 eval "$(direnv hook zsh)"
 
