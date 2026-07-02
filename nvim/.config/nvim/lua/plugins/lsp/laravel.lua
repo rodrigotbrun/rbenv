@@ -1,5 +1,17 @@
+local function laravel_ready()
+	local cwd = vim.fn.getcwd()
+	return vim.fn.filereadable(cwd .. "/artisan") == 1
+		and vim.fn.filereadable(cwd .. "/vendor/autoload.php") == 1
+end
+
 return {
 	"adalessa/laravel.nvim",
+	cond = laravel_ready,
+	init = function()
+		if laravel_ready() then
+			vim.fn.mkdir("vendor/nvim-laravel", "p")
+		end
+	end,
 	dependencies = {
 		"tpope/vim-dotenv",
 		"MunifTanjim/nui.nvim",
@@ -96,13 +108,24 @@ return {
 			noremap = true,
 		},
 	},
-	event = { "VeryLazy" },
-	opts = {
-		lsp_server = "phpactor", -- "phpactor | intelephense"
-		features = {
+	-- load on demand (cmd/keys), not on every startup
+	opts = function(_, opts)
+		opts.lsp_server = "phpactor" -- "phpactor | intelephense"
+		opts.features = vim.tbl_deep_extend("force", opts.features or {}, {
 			pickers = {
 				provider = "snacks", -- "snacks | telescope | fzf-lua | ui-select"
 			},
-		},
-	},
+		})
+
+		opts.extensions = vim.tbl_deep_extend("force", opts.extensions or {}, {
+			diagnostic = { enable = false },
+		})
+
+		-- status provider crashes when artisan/php fails (upstream bug)
+		opts.providers = vim.tbl_filter(function(provider)
+			return provider.name ~= "laravel.providers.status_provider"
+		end, require("laravel.options.default").providers)
+
+		return opts
+	end,
 }

@@ -44,6 +44,12 @@ vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "split window horizontally"
 vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "make split equal size" })
 vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "close current split" })
 
+-- resize splits: Alt + Arrow (Option + Arrow in iTerm2)
+vim.keymap.set("n", "<A-Up>", "<cmd>resize +2<CR>", { desc = "increase split height" })
+vim.keymap.set("n", "<A-Down>", "<cmd>resize -2<CR>", { desc = "decrease split height" })
+vim.keymap.set("n", "<A-Right>", "<cmd>vertical resize +2<CR>", { desc = "increase split width" })
+vim.keymap.set("n", "<A-Left>", "<cmd>vertical resize -2<CR>", { desc = "decrease split width" })
+
 -- copy filepath to the clipboard
 vim.keymap.set("n", "<leader>fp", function()
 	local filePath = vim.fn.expand("%:~")
