@@ -1,19 +1,20 @@
 #/bin/bash
 # source your zshrc with this at the end
 
-export RBHOME=~/.rbdev/
+export RB_HOME=~/dev/rbenv/
+export ZPLUG_HOME=/opt/homebrew/opt/zplug
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+export ANDROID_HOME=$HOME/Library/Android/sdk
 
 export TERM=xterm
 
-export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 
 # Set my common aliases
-source $HOME/.rbdev/rbaliases.sh
-source $HOME/.rbdev/rbfunctions.sh
+source $RB_HOME/rbaliases.sh
+source $RB_HOME/rbfunctions.sh
 
 # Restart to my tmux session
 
@@ -31,16 +32,10 @@ fi
 eval "$(fzf --zsh)"
 
 # zsh plugin manager
-export ZPLUG_HOME=/opt/homebrew/opt/zplug
 source $ZPLUG_HOME/init.zsh
-
 source ~/.zsh-plugins
 
 eval "$(zoxide init zsh)"
-
-# eval $(eas autocomplete:script zsh)
-
-eval "$(direnv hook zsh)"
 
 # CTRL-Y to copy the command into clipboard using pbcopy
 export FZF_CTRL_R_OPTS="
@@ -56,8 +51,6 @@ export FZF_CTRL_T_OPTS="
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
 export FZF_DEFAULT_OPTS='--height 40% --tmux bottom,40% --layout reverse --border top --style full'
-
-export CURSOR_CONFIG_DIR="~/.rbdev/ide/vscode-based/"
 
 HOMEBREW_NO_AUTO_UPDATE=1
 HOMEBREW_NO_ENV_HINTS=1

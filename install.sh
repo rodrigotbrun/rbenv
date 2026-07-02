@@ -12,14 +12,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
     fi
 fi
 
-# install zsh
-echo "Installing ZSH"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# install homebrew
-echo "Installing homebrew"
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
 brew analytics off
 
 brew install node
@@ -28,65 +20,25 @@ brew tap FelixKratz/formulae
 
 npm install -g ios-deploy
 
-brew install git
-brew install tmux
-brew install neovim
-brew install gitmux
-brew install dysk
-brew install lsd
-brew install direnv
+brew install git tmux neovim gitmux
 
 # install tmux plugin manager (tpm)
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-brew install coreutils
-brew install zplug
-brew install stow
-brew install pngpaste
-brew install zsh-autosuggestions
-brew install zsh-syntax-highlighting
-brew install fzf
-brew install bat
-brew install fd
-brew install zoxide
-brew install lua
-brew install luajit
-brew install luarocks
-brew install prettier
-brew install make
-brew install qmk
-brew install ripgrep
-
-brew install colima docker docker-compose docker-credential-helper
-
-brew install lazygit
-brew install lazykube
-brew install lazydocker
-brew install starship
-brew install tree-sitter
-brew install tree
-brew install borders
-brew install imagemagick
+brew install coreutils zplug stow zsh-autosuggestions zsh-syntax-highlighting \
+  fzf bat fd zoxide lua luajit luarocks prettier make qmk lazygit \
+  lazykube lazydocker tree-sitter tree borders imagemagick
 
 brew tap hashicorp/tap
-brew install hashicorp/tap/terraform
 
 brew install --cask font-hack-nerd-font
 brew install --cask font-jetbrains-mono-nerd-font
 brew install --cask font-sf-pro
-brew install --cask nikitabobko/tap/aerospace
-brew install --cask dbeaver-community
 
 # mac settings
-defaults write NSGlobalDomain KeyRepeat -int 2
-defaults write InitialKeyRepeat -int 15
+sudo defaults write NSGlobalDomain KeyRepeat -int 2
+sudo defaults write InitialKeyRepeat -int 15
 csrutil status
-
-# Clone dotfiles repository
-if [ ! -d "$HOME/.rbdev" ]; then
-  echo "Cloning repository..."
-  git clone https://github.com/rodrigotbrun/dev-on-my-mac $HOME/rbdev
-fi
 
 echo 'export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"' >> ~/.zshrc
 
