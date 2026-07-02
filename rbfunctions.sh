@@ -1,6 +1,4 @@
-#/bin/bash
-
-# Functions
+#!/bin/bash
 
 # Convert image to webp using Imagick
 towebp() {
@@ -26,17 +24,6 @@ convert_all_png_to_webp() {
 }
 
 csvdb() {
-
 	sqlite3 $1".db" ".import --csv '$2' '$1'" && open $1".db"
-
 }
-
-
-dservices() {
-	cd ~/.rbdev/dev-env-services
-	docker compose "$@"
-	cd -
-}
-
-
 
