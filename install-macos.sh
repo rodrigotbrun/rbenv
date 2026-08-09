@@ -206,7 +206,8 @@ brew install --cask \
     ollama \
     openlogi \
     the-unarchiver \
-    whatsapp
+    whatsapp \
+    rectangle
 
 # ============================================================
 # Borg FUSE
@@ -304,9 +305,19 @@ fi
 
 log "Applying macOS settings"
 
-# Keyboard repeat speed
+# Keyboard repeat: short delay, fast rate
+# (System Settings → Keyboard / Accessibility key repeat)
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
+
+# Hold key to repeat instead of showing accent menu
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+# Trackpad: three-finger drag
+# (System Settings → Accessibility → Pointer Control → Trackpad Options)
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerDragGesture -bool true
 
 # ============================================================
 # Shell Configuration
@@ -370,37 +381,48 @@ log "Configuring login items"
 osascript <<'EOF'
 tell application "System Events"
 
--- Remove existing entries if present
-try
-    delete login item "Docker"
-end try
+    -- Remove existing entries if present
+    try
+        delete login item "Docker"
+    end try
 
-try
-    delete login item "Docker Desktop"
-end try
+    try
+        delete login item "Docker Desktop"
+    end try
 
-try
-    delete login item "1Password"
-end try
+    try
+        delete login item "1Password"
+    end try
 
-try
-    delete login item "1Password 8"
-end try
+    try
+        delete login item "1Password 8"
+    end try
 
--- Add only Docker Desktop and 1Password
-if exists application file "Docker.app" of folder "Applications" of startup disk then
-    make login item at end with properties {
-        path:"/Applications/Docker.app",
-        hidden:false
-    }
-end if
+    try
+        delete login item "Rectangle"
+    end try
 
-if exists application file "1Password.app" of folder "Applications" of startup disk then
-    make login item at end with properties {
-        path:"/Applications/1Password.app",
-        hidden:false
-    }
-end if
+    -- Add login items
+    if exists application file "Docker.app" of folder "Applications" of startup disk then
+        make login item at end with properties {
+            path:"/Applications/Docker.app",
+            hidden:false
+        }
+    end if
+
+    if exists application file "1Password.app" of folder "Applications" of startup disk then
+        make login item at end with properties {
+            path:"/Applications/1Password.app",
+            hidden:false
+        }
+    end if
+
+    if exists application file "Rectangle.app" of folder "Applications" of startup disk then
+        make login item at end with properties {
+            path:"/Applications/Rectangle.app",
+            hidden:false
+        }
+    end if
 
 end tell
 EOF
@@ -409,6 +431,7 @@ echo ""
 echo "Login items configured:"
 echo "  - Docker Desktop"
 echo "  - 1Password"
+echo "  - Rectangle"
 
 # ============================================================
 # Homebrew Cleanup
@@ -541,10 +564,12 @@ echo "  1. Restart your terminal"
 echo "  2. Restart your Mac"
 echo "  3. Docker Desktop will start automatically"
 echo "  4. 1Password will start automatically"
-echo "  5. Open Xcode once"
-echo "  6. Sign into 1Password"
-echo "  7. Sign into Chrome"
-echo "  8. Sign into the Mac App Store if required"
+echo "  5. Rectangle will start automatically (grant Accessibility if prompted)"
+echo "  6. Open Xcode once"
+echo "  7. Sign into 1Password"
+echo "  8. Sign into Chrome"
+echo "  9. Sign into the Mac App Store if required"
+echo " 10. Log out/in (or reboot) for trackpad three-finger drag to apply"
 echo ""
 
 echo "Done."
