@@ -40,6 +40,16 @@ cd ~/.brun
 bash ./stow.sh
 ```
 
+### Brew packages only
+
+If you only want Homebrew formulae/casks (no Xcode, Dock, shell wiring, etc.):
+
+```bash
+brew tap FelixKratz/formulae
+brew trust FelixKratz/formulae
+brew bundle --file=~/.brun/Brewfile
+```
+
 ## Update env
 
 1. Pull the latest changes: `cd ~/.brun && git pull`
