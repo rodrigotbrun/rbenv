@@ -25,6 +25,14 @@ The macOS installer will:
 - Append `source ~/.brun/rbrc.sh` to `~/.zshrc`
 - Run `stow.sh` to symlink tmux, zsh, and nvim configs into your home
 
+### Failed?
+
+Run a full reset
+
+```bash
+INSTALL_RESET=1 bash ./install.sh
+```
+
 ### Already installed?
 
 If tools are already set up and you only need the shell config, append this to the end of `~/.zshrc`:
