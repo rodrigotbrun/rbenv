@@ -110,6 +110,7 @@ fi
 log "Adding Homebrew taps"
 
 brew tap FelixKratz/formulae
+brew trust FelixKratz/formulae
 brew tap borgbackup/tap
 brew tap shopify/shopify
 
@@ -151,7 +152,8 @@ brew install \
     btop \
     borgbackup \
     xcodes \
-    shopify-cli
+    shopify-cli \
+    dockutil
 
 # ============================================================
 # Docker
@@ -203,7 +205,8 @@ brew install --cask \
     vorta \
     ollama \
     openlogi \
-    the-unarchiver
+    the-unarchiver \
+    whatsapp
 
 # ============================================================
 # Borg FUSE
@@ -414,6 +417,57 @@ echo "  - 1Password"
 log "Cleaning Homebrew"
 
 brew cleanup
+
+# ============================================================
+# Dock Configuration
+# ============================================================
+
+log "Configuring macOS Dock"
+
+# dockutil makes Dock management much more reliable than
+# manipulating the Dock plist directly.
+
+# Remove all existing Dock applications
+dockutil --remove all --no-restart
+
+# ------------------------------------------------------------
+# Add only the applications we want
+# ------------------------------------------------------------
+dockutil --add "/System/Library/CoreServices/Finder.app" --no-restart
+dockutil --add "/System/Applications/Launchpad.app" --no-restart
+dockutil --add "/Applications/iTerm.app" --no-restart
+dockutil --add "/Applications/Google Chrome.app" --no-restart
+dockutil --add "/Applications/PhpStorm.app" --no-restart
+dockutil --add "/Applications/WhatsApp.app" --no-restart
+dockutil --add "/Applications/Cursor.app" --no-restart
+dockutil --add "/Applications/Docker.app" --no-restart
+dockutil --add "/System/Applications/Calendar.app" --no-restart
+dockutil --add "/Applications/TablePlus.app" --no-restart
+dockutil --add "/Applications/Notion.app" --no-restart
+dockutil --add "/Applications/Discord.app" --no-restart
+
+# Disable "Show recent applications" in the Dock
+defaults write com.apple.dock show-recents -bool false
+
+# Restart Dock
+killall Dock
+
+echo ""
+echo "Dock configured:"
+echo "  Finder"
+echo "  Launchpad"
+echo "  iTerm2"
+echo "  Google Chrome"
+echo "  PhpStorm"
+echo "  WhatsApp"
+echo "  Cursor"
+echo "  Docker Desktop"
+echo "  Calendar"
+echo "  TablePlus"
+echo "  Notion"
+echo "  Discord"
+echo ""
+echo "Recent applications disabled."
 
 # ============================================================
 # Final Verification
