@@ -131,6 +131,7 @@ $()$(
         stow \
         zsh-autosuggestions \
         zsh-syntax-highlighting \
+        zplug \
         fzf \
         bat \
         fd \
@@ -338,6 +339,26 @@ source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 EOF
     fi
+
+    # Brun environment (rbrc.sh)
+    if ! grep -Fq "rbrc.sh" "$ZSHRC"; then
+        cat >>"$ZSHRC" <<'EOF'
+
+# Brun environment
+source ~/.brun/rbrc.sh
+EOF
+    fi
+
+    # ============================================================
+    # Dotfiles (stow)
+    # ============================================================
+
+    log "Linking dotfiles with stow"
+
+    (
+        cd "$RB_HOME"
+        bash ./stow.sh
+    )
 
     # ============================================================
     # Login Items

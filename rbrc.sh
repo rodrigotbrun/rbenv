@@ -1,7 +1,7 @@
 #/bin/bash
 # source your zshrc with this at the end
 
-export RB_HOME=~/dev/rbenv/
+export RB_HOME=~/.brun
 export ZPLUG_HOME=/opt/homebrew/opt/zplug
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 export ANDROID_HOME=$HOME/Library/Android/sdk

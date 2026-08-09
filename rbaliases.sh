@@ -25,7 +25,7 @@ alias dtree="tree -L 3 -a -d -I '.git' --charset X "
 
 # ssh to my home server
 alias rb="ssh rb"
-alias rbdev="cd ~/dev/rbenv/ && nvim"
+alias rbdev="cd ~/.brun && nvim"
 
 alias lg="lazygit"
 

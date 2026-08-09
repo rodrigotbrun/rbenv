@@ -1,30 +1,46 @@
-# .rbdev env
+# Brun env
 
-This is my dev env settings, that includes my daily basis tools, aliases and
-functions.
+Personal dev environment: tools, aliases, functions, and dotfiles.
 
-This is focused on my mac env.
-
-This is always a work in progress!.
+Focused on macOS for now. Linux installer is stubbed. Always a work in progress.
 
 ## Installing
 
-- Clone this git repo, and run the `bash ./install.sh`. This will take care of
-  installing everything I use when starting on a new mac.
+Clone into `~/.brun` and run the installer:
 
-- If you already have everything installed, and just need to enable my .rbenv,
-  just source it at the end of your .zshrc file with
-
+```bash
+git clone git@github.com:rodrigotbrun/rbenv.git ~/.brun
+cd ~/.brun
+bash ./install.sh
 ```
-source ~/.rbdev/rbrc.sh
+
+`install.sh` detects the OS and runs the matching script:
+
+- macOS → `install-macos.sh`
+- Linux → `install-linux.sh` (not implemented yet)
+
+The macOS installer will:
+
+- Install Homebrew packages and apps
+- Append `source ~/.brun/rbrc.sh` to `~/.zshrc`
+- Run `stow.sh` to symlink tmux, zsh, and nvim configs into your home
+
+### Already installed?
+
+If tools are already set up and you only need the shell config, append this to the end of `~/.zshrc`:
+
+```bash
+source ~/.brun/rbrc.sh
+```
+
+Then link dotfiles:
+
+```bash
+cd ~/.brun
+bash ./stow.sh
 ```
 
 ## Update env
 
-1. Pull the git repo changes
-2. Give exec permissions to the _update.sh_ script if you haven't yet `chown +x
-~/.rbenv/update.sh`
-3. Run `bash ~/.rbdev/update.sh`
-
-This will run my update scripts, usually only will run the stow symlinks again
-(in case anything new appears), otherwise, no need to run this update script.
+1. Pull the latest changes: `cd ~/.brun && git pull`
+2. Re-run stow if new/changed dotfiles appeared: `bash ./stow.sh`
