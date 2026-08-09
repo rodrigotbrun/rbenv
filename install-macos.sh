@@ -243,6 +243,12 @@ step_macos_settings() {
     defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
     defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
     defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerDragGesture -bool true
+
+    # Screenshots → ~/Pictures/Screenshots
+    local screenshots_dir="$HOME/Pictures/Screenshots"
+    mkdir -p "$screenshots_dir"
+    defaults write com.apple.screencapture location "$screenshots_dir"
+    killall SystemUIServer 2>/dev/null || true
 }
 
 step_shell_config() {
@@ -353,8 +359,7 @@ step_dock() {
 
     dockutil --remove all --no-restart
 
-    dockutil --add "/System/Library/CoreServices/Finder.app" --no-restart
-    dockutil --add "/System/Applications/Launchpad.app" --no-restart
+    # Finder is kept by macOS after --remove all; don't add it again or it duplicates.
     dockutil --add "/Applications/iTerm.app" --no-restart
     dockutil --add "/Applications/Google Chrome.app" --no-restart
     dockutil --add "/Applications/PhpStorm.app" --no-restart
@@ -366,13 +371,27 @@ step_dock() {
     dockutil --add "/Applications/Notion.app" --no-restart
     dockutil --add "/Applications/Discord.app" --no-restart
 
+    # Keep Downloads on the right side of the Dock (removed by --remove all)
+    dockutil --add "$HOME/Downloads" \
+        --section others \
+        --display stack \
+        --view auto \
+        --sort dateadded \
+        --no-restart
+
+    dockutil --add "$HOME/Pictures/Screenshots" \
+                --section others \
+                --display stack \
+                --view auto \
+                --sort dateadded \
+                --no-restart
+
     defaults write com.apple.dock show-recents -bool false
     killall Dock
 
     echo ""
     echo "Dock configured:"
-    echo "  Finder"
-    echo "  Launchpad"
+    echo "  Finder (system default)"
     echo "  iTerm2"
     echo "  Google Chrome"
     echo "  PhpStorm"
@@ -383,6 +402,7 @@ step_dock() {
     echo "  TablePlus"
     echo "  Notion"
     echo "  Discord"
+    echo "  Downloads (stack)"
     echo ""
     echo "Recent applications disabled."
 }
@@ -457,6 +477,14 @@ step_verify() {
     else
         echo "Not installed"
     fi
+
+    echo ""
+    echo "AWS CLI:"
+    aws --version 2>/dev/null || echo "Not installed"
+
+    echo ""
+    echo "Google Cloud CLI:"
+    gcloud --version 2>/dev/null | head -n 1 || echo "Not installed"
 
     echo ""
     echo "Ollama:"
