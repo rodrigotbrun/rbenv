@@ -164,6 +164,7 @@ step_homebrew_taps() {
     brew tap FelixKratz/formulae
     brew trust FelixKratz/formulae
     brew tap borgbackup/tap
+    brew trust borgbackup/tap
     brew tap shopify/shopify
     brew trust shopify/shopify
 }
