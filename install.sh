@@ -31,16 +31,12 @@ OS="$(uname -s)"
 
 case "$OS" in
 Darwin)
+    INSTALLER="$RB_HOME/install-macos.sh"
     echo "Detected macOS"
-    exec bash "$RB_HOME/install-macos.sh" "$@"
     ;;
 Linux)
+    INSTALLER="$RB_HOME/install-linux.sh"
     echo "Detected Linux"
-    if [[ ! -f "$RB_HOME/install-linux.sh" ]]; then
-        echo "ERROR: install-linux.sh not found at $RB_HOME"
-        exit 1
-    fi
-    exec bash "$RB_HOME/install-linux.sh" "$@"
     ;;
 *)
     echo "Unsupported OS: $OS"
@@ -48,3 +44,11 @@ Linux)
     exit 1
     ;;
 esac
+
+if [[ ! -f "$INSTALLER" ]]; then
+    echo "ERROR: installer not found: $INSTALLER"
+    exit 1
+fi
+
+# Run without exec so a broken installer can't silently become an interactive shell
+bash "$INSTALLER" "$@"
