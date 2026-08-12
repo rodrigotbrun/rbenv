@@ -14,6 +14,9 @@ export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 # Mason
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
+# Composer global binaries (laravel-lsp, etc.)
+export PATH="$HOME/.composer/vendor/bin:$HOME/.config/composer/vendor/bin:$PATH"
+
 # NVM 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm

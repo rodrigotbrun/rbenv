@@ -177,6 +177,19 @@ step_npm_globals() {
     npm install --global ios-deploy
 }
 
+step_composer_globals() {
+    if ! command_exists composer; then
+        echo "Composer not found; skipping global packages."
+        return 0
+    fi
+
+    if composer global show laravel/lsp >/dev/null 2>&1; then
+        echo "laravel/lsp already installed globally."
+    else
+        composer global require laravel/lsp
+    fi
+}
+
 step_tpm() {
     local tpm_dir="$HOME/.tmux/plugins/tpm"
 
@@ -507,6 +520,7 @@ run_step "oh-my-zsh" step_oh_my_zsh
 run_step "homebrew-taps" step_homebrew_taps
 run_step "brew-bundle" step_brew_bundle
 run_step "npm-globals" step_npm_globals
+run_step "composer-globals" step_composer_globals
 run_step "tpm" step_tpm
 run_step "xcode-install" step_xcode_install
 run_step "xcode-configure" step_xcode_configure
