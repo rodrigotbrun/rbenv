@@ -365,6 +365,14 @@ step_brew_cleanup() {
     brew cleanup
 }
 
+step_cursor_agent() {
+    if command_exists agent; then
+        echo "Cursor Agent CLI already installed."
+    else
+        curl https://cursor.com/install -fsS | bash
+    fi
+}
+
 step_dock() {
     local dock_plist="$HOME/Library/Preferences/com.apple.dock.plist"
 
@@ -531,6 +539,7 @@ run_step "stow" step_stow
 run_step "login-items" step_login_items
 run_step "brew-cleanup" step_brew_cleanup
 run_step "dock" step_dock
+run_step "cursor-agent" step_cursor_agent
 
 # Verification always runs
 CURRENT_STEP="verify"
