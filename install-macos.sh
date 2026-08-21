@@ -89,7 +89,31 @@ on_error() {
     exit 1
 }
 
+cleanup() {
+    if [[ -n "${SUDO_KEEPALIVE_PID:-}" ]]; then
+        kill "$SUDO_KEEPALIVE_PID" 2>/dev/null || true
+    fi
+}
+
+# Prompt once up front; a background loop refreshes the timestamp so long
+# steps (Homebrew, Xcode, etc.) don't ask for the password again.
+keep_sudo_alive() {
+    echo ""
+    echo "Administrator password (cached for the rest of this install)..."
+    sudo -v
+
+    (
+        while true; do
+            sudo -n true
+            sleep 50
+            kill -0 "$$" || exit
+        done
+    ) 2>/dev/null &
+    SUDO_KEEPALIVE_PID=$!
+}
+
 trap on_error ERR
+trap cleanup EXIT
 
 # ============================================================
 # Architecture
@@ -515,6 +539,8 @@ step_verify() {
 # ============================================================
 # Run
 # ============================================================
+
+keep_sudo_alive
 
 run_step "command-line-tools" step_command_line_tools
 run_step "homebrew" step_homebrew
