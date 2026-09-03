@@ -10,6 +10,8 @@ Press `<leader>kk` in Neovim to search all configured keymaps live.
 
 ### Core (`lua/core/keymap.lua`)
 
+Tabs, splits, pane focus, and resize mirror tmux defaults, with `<leader>` in place of prefix (`Ctrl-b`). Windows map to tabs; panes map to splits. Your extra tmux binds `H` / `V` are included.
+
 | Key | Mode | Action |
 | --- | --- | --- |
 | `K` | Visual | Move selected lines up |
@@ -19,17 +21,22 @@ Press `<leader>kk` in Neovim to search all configured keymaps live.
 | `<leader>p` | Visual | Paste without yanking deleted text |
 | `<leader>L` | Normal | Format buffer (see also Formatting) |
 | `Q` | Normal | Disabled |
-| `<leader>x` | Normal | Make current file executable (`chmod +x`) |
+| `<leader>X` | Normal | Make current file executable (`chmod +x`) |
 | `<leader>s` | Normal | Search/replace word under cursor in file |
-| `<leader>t` | Normal | Open new tab |
-| `<leader>w` | Normal | Close current tab |
-| `<leader>tn` | Normal | Next tab |
-| `<leader>tp` | Normal | Previous tab |
-| `<leader>sv` | Normal | Split window vertically |
-| `<leader>sh` | Normal | Split window horizontally |
-| `<leader>se` | Normal | Make splits equal size |
-| `<leader>sx` | Normal | Close current split |
-| `Alt+↑/↓/←/→` | Normal | Resize split (height/width) |
+| `<leader>c` | Normal | New tab (tmux `c`) |
+| `<leader>n` | Normal | Next tab (tmux `n`) |
+| `<leader>p` | Normal | Previous tab (tmux `p`) |
+| `<leader>&` | Normal | Close current tab (tmux `&`) |
+| `<leader>%` | Normal | Split vertically (tmux `%`) |
+| `<leader>"` | Normal | Split horizontally (tmux `"`) |
+| `<leader>x` | Normal | Close current split (tmux `x`) |
+| `<leader>H` | Normal | Even horizontal layout (tmux `H`) |
+| `<leader>V` | Normal | Even vertical layout (tmux `V`) |
+| `<leader>o` | Normal | Next split (tmux `o`) |
+| `<leader>;` | Normal | Last split (tmux `;`) |
+| `<leader>↑/↓/←/→` | Normal | Focus split (tmux arrows) |
+| `<leader>Ctrl+↑/↓/←/→` | Normal | Resize split by 1 (tmux `C-arrow`) |
+| `<leader>Alt+↑/↓/←/→` | Normal | Resize split by 5 (tmux `M-arrow`) |
 | `<leader>fp` | Normal | Copy file path to clipboard |
 | `<C-s>yn` | Normal | Spotify: next track |
 | `<C-s>yb` | Normal | Spotify: previous track |

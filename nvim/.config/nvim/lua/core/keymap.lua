@@ -21,7 +21,7 @@ vim.keymap.set("n", "<leader>L", vim.lsp.buf.format)
 
 vim.keymap.set("n", "Q", "<nop>")
 
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "makes file executable" })
+vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true, desc = "makes file executable" })
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- highlight yank/copy
@@ -33,22 +33,41 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- tabs
-vim.keymap.set("n", "<leader>t", "<cmd>tabnew<CR>", { desc = "open new tab" })
-vim.keymap.set("n", "<leader>w", "<cmd>tabclose<CR>", { desc = "close current tab" })
-vim.keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "go to next tab" })
-vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "go to previous tab" })
+-- tmux-style: <leader> stands in for prefix (Ctrl-b)
+-- windows → tabs, panes → splits
+vim.keymap.set("n", "<leader>c", "<cmd>tabnew<CR>", { desc = "new tab (tmux c)" })
+vim.keymap.set("n", "<leader>n", "<cmd>tabn<CR>", { desc = "next tab (tmux n)" })
+vim.keymap.set("n", "<leader>p", "<cmd>tabp<CR>", { desc = "previous tab (tmux p)" })
+vim.keymap.set("n", "<leader>&", "<cmd>tabclose<CR>", { desc = "close tab (tmux &)" })
 
-vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "split window vertically" })
-vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "split window horizontally" })
-vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "make split equal size" })
-vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "close current split" })
+vim.keymap.set("n", "<leader>%", "<C-w>v", { desc = "split vertically (tmux %)" })
+vim.keymap.set("n", '<leader>"', "<C-w>s", { desc = 'split horizontally (tmux ")' })
+vim.keymap.set("n", "<leader>x", "<cmd>close<CR>", { desc = "close split (tmux x)" })
+vim.keymap.set("n", "<leader>H", function()
+	vim.cmd("windo wincmd H")
+	vim.cmd("wincmd =")
+end, { desc = "even horizontal layout (tmux H)" })
+vim.keymap.set("n", "<leader>V", function()
+	vim.cmd("windo wincmd K")
+	vim.cmd("wincmd =")
+end, { desc = "even vertical layout (tmux V)" })
+vim.keymap.set("n", "<leader>o", "<C-w>w", { desc = "next split (tmux o)" })
+vim.keymap.set("n", "<leader>;", "<C-w>p", { desc = "last split (tmux ;)" })
 
--- resize splits: Alt + Arrow (Option + Arrow in iTerm2)
-vim.keymap.set("n", "<A-Up>", "<cmd>resize +2<CR>", { desc = "increase split height" })
-vim.keymap.set("n", "<A-Down>", "<cmd>resize -2<CR>", { desc = "decrease split height" })
-vim.keymap.set("n", "<A-Right>", "<cmd>vertical resize +2<CR>", { desc = "increase split width" })
-vim.keymap.set("n", "<A-Left>", "<cmd>vertical resize -2<CR>", { desc = "decrease split width" })
+vim.keymap.set("n", "<leader><Left>", "<C-w>h", { desc = "focus split left (tmux Left)" })
+vim.keymap.set("n", "<leader><Down>", "<C-w>j", { desc = "focus split down (tmux Down)" })
+vim.keymap.set("n", "<leader><Up>", "<C-w>k", { desc = "focus split up (tmux Up)" })
+vim.keymap.set("n", "<leader><Right>", "<C-w>l", { desc = "focus split right (tmux Right)" })
+
+-- tmux: prefix + Ctrl-arrow resizes by 1, prefix + Alt-arrow by 5
+vim.keymap.set("n", "<leader><C-Up>", "<cmd>resize +1<CR>", { desc = "increase split height (tmux C-Up)" })
+vim.keymap.set("n", "<leader><C-Down>", "<cmd>resize -1<CR>", { desc = "decrease split height (tmux C-Down)" })
+vim.keymap.set("n", "<leader><C-Right>", "<cmd>vertical resize +1<CR>", { desc = "increase split width (tmux C-Right)" })
+vim.keymap.set("n", "<leader><C-Left>", "<cmd>vertical resize -1<CR>", { desc = "decrease split width (tmux C-Left)" })
+vim.keymap.set("n", "<leader><A-Up>", "<cmd>resize +5<CR>", { desc = "increase split height (tmux M-Up)" })
+vim.keymap.set("n", "<leader><A-Down>", "<cmd>resize -5<CR>", { desc = "decrease split height (tmux M-Down)" })
+vim.keymap.set("n", "<leader><A-Right>", "<cmd>vertical resize +5<CR>", { desc = "increase split width (tmux M-Right)" })
+vim.keymap.set("n", "<leader><A-Left>", "<cmd>vertical resize -5<CR>", { desc = "decrease split width (tmux M-Left)" })
 
 -- copy filepath to the clipboard
 vim.keymap.set("n", "<leader>fp", function()
