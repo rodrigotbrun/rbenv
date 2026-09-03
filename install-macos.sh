@@ -217,11 +217,15 @@ step_composer_globals() {
 step_tpm() {
     local tpm_dir="$HOME/.tmux/plugins/tpm"
 
-    if [[ -d "$tpm_dir" ]]; then
+    if [[ -x "$tpm_dir/tpm" ]]; then
         echo "TPM already installed."
     else
+        mkdir -p "$(dirname "$tpm_dir")"
+        rm -rf "$tpm_dir"
         git clone https://github.com/tmux-plugins/tpm "$tpm_dir"
     fi
+
+    "$tpm_dir/bin/install_plugins"
 }
 
 step_xcode_install() {

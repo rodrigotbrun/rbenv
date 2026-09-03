@@ -4,6 +4,17 @@ Personal dev environment: tools, aliases, functions, and dotfiles.
 
 Focused on macOS for now. Linux installer is stubbed. Always a work in progress.
 
+## Docs
+
+| Topic | Page |
+| --- | --- |
+| Install, checkpoints, updates | [docs/install.md](docs/install.md) |
+| Repo layout and Stow | [docs/layout.md](docs/layout.md) |
+| tmux, resurrect, continuum | [docs/tmux.md](docs/tmux.md) |
+| Shell env, aliases, functions | [docs/shell.md](docs/shell.md) |
+| Neovim | [docs/nvim.md](docs/nvim.md) |
+| Neovim keymaps | [nvim/.config/nvim/KEYMAPS.md](nvim/.config/nvim/KEYMAPS.md) |
+
 ## Installing
 
 Clone into `~/.brun` and run the installer:
