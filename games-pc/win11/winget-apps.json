@@ -17,16 +17,7 @@
           "PackageIdentifier": "Notion.Notion"
         },
         {
-          "PackageIdentifier": "Microsoft.WindowsTerminal"
-        },
-        {
           "PackageIdentifier": "Valve.Steam"
-        },
-        {
-          "PackageIdentifier": "Docker.DockerDesktop"
-        },
-        {
-          "PackageIdentifier": "JetBrains.PhpStorm"
         },
         {
           "PackageIdentifier": "Brave.Brave"
@@ -38,16 +29,10 @@
           "PackageIdentifier": "OpenShot.OpenShot"
         },
         {
-          "PackageIdentifier": "Anysphere.Cursor"
-        },
-        {
           "PackageIdentifier": "Spotify.Spotify"
         },
         {
           "PackageIdentifier": "RARLab.WinRAR"
-        },
-        {
-          "PackageIdentifier": "GitHub.GitHubDesktop"
         },
         {
           "PackageIdentifier": "Blitz.Blitz"
@@ -57,9 +42,6 @@
         },
         {
           "PackageIdentifier": "CPUID.CPU-Z"
-        },
-        {
-          "PackageIdentifier": "OpenJS.NodeJS.23"
         },
         {
           "PackageIdentifier": "FinalWire.AIDA64.Extreme"

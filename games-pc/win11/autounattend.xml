@@ -562,6 +562,217 @@ foreach( $drive in [System.IO.DriveInfo]::GetDrives() ) {
 }
 'Cannot find any files that match pattern.' | Write-Warning;
 		</File>
+		<File path="C:\Windows\Setup\Scripts\InstallWinget.ps1">
+$ProgressPreference = 'SilentlyContinue';
+$winget = "$env:LOCALAPPDATA\Microsoft\WindowsApps\winget.exe";
+
+function Test-Winget {
+	if( -not ( Test-Path -LiteralPath $winget ) ) {
+		return $false;
+	}
+	try {
+		$null = &amp; $winget --version;
+		return ( $LASTEXITCODE -eq 0 );
+	} catch {
+		return $false;
+	}
+}
+
+if( -not ( Test-Winget ) ) {
+	'winget not usable, installing App Installer.' | Write-Warning;
+	$dir = Join-Path -Path $env:TEMP -ChildPath 'winget-install';
+	New-Item -Path $dir -ItemType 'Directory' -Force | Out-Null;
+	try {
+		$client = [System.Net.WebClient]::new();
+		$client.DownloadFile( 'https://github.com/microsoft/winget-cli/releases/latest/download/DesktopAppInstaller_Dependencies.zip', "$dir\deps.zip" );
+		Expand-Archive -LiteralPath "$dir\deps.zip" -DestinationPath "$dir\deps" -Force;
+		Get-ChildItem -Path "$dir\deps\x64\*.appx" | ForEach-Object -Process {
+			Add-AppxPackage -Path $_.FullName -ErrorAction 'Continue';
+		};
+		$client.DownloadFile( 'https://aka.ms/getwinget', "$dir\winget.msixbundle" );
+		Add-AppxPackage -Path "$dir\winget.msixbundle" -ErrorAction 'Continue';
+	} catch {
+		$_ | Write-Warning;
+	}
+	Remove-Item -LiteralPath $dir -Recurse -Force -ErrorAction 'SilentlyContinue';
+}
+
+# The alias can take a moment to appear after registration.
+for( $i = 0; $i -lt 12 -and -not ( Test-Winget ); $i++ ) {
+	Start-Sleep -Seconds 5;
+}
+
+if( Test-Winget ) {
+	'winget version: {0}' -f ( &amp; $winget --version );
+	&amp; $winget source update --disable-interactivity;
+} else {
+	'winget is still not usable after installation attempt.' | Write-Error;
+}
+		</File>
+		<File path="C:\Windows\Setup\Scripts\CopySetupFiles.ps1">
+$found = $null;
+foreach( $drive in [System.IO.DriveInfo]::GetDrives() ) {
+	if( Test-Path -LiteralPath ( Join-Path -Path $drive.RootDirectory -ChildPath '01-install.ps1' ) ) {
+		$found = $drive.RootDirectory.FullName;
+		break;
+	}
+}
+if( -not $found ) {
+	'Cannot find 01-install.ps1 on any drive.' | Write-Warning;
+	return;
+}
+New-Item -Path 'C:\Setup' -ItemType 'Directory' -Force | Out-Null;
+foreach( $pattern in '0*-install.ps1', 'common.ps1', 'winget-*.json' ) {
+	Get-ChildItem -Path $found -Filter $pattern -File | Copy-Item -Destination 'C:\Setup' -Force -Verbose;
+}
+		</File>
+		<File path="C:\Windows\Setup\Scripts\CreateSetupShortcuts.ps1">
+$desktop = [Environment]::GetFolderPath('CommonDesktopDirectory');
+$shell = New-Object -ComObject 'WScript.Shell';
+$powershell = "$env:windir\System32\WindowsPowerShell\v1.0\powershell.exe";
+
+$items = @(
+	@{ Name = '1 - Install apps';  Script = '01-install.ps1'; Icon = 'shell32.dll,21'; };
+	@{ Name = '2 - Steam games';   Script = '02-install.ps1'; Icon = 'shell32.dll,15'; };
+	@{ Name = '3 - Dev tools';     Script = '03-install.ps1'; Icon = 'shell32.dll,25'; };
+);
+
+foreach( $item in $items ) {
+	$path = Join-Path -Path $desktop -ChildPath ( '{0}.lnk' -f $item.Name );
+	$lnk = $shell.CreateShortcut( $path );
+	$lnk.TargetPath = $powershell;
+	$lnk.Arguments = '-NoProfile -ExecutionPolicy Bypass -File "C:\Setup\{0}"' -f $item.Script;
+	$lnk.WorkingDirectory = 'C:\Setup';
+	$lnk.IconLocation = $item.Icon;
+	$lnk.Save();
+
+	# Set the "Run as administrator" flag (SLDF_RUNAS_USER) in the .lnk header.
+	$bytes = [System.IO.File]::ReadAllBytes( $path );
+	$bytes[0x15] = $bytes[0x15] -bor 0x20;
+	[System.IO.File]::WriteAllBytes( $path, $bytes );
+}
+		</File>
+		<File path="C:\Windows\Setup\Scripts\PlaceDesktopIcons.ps1">
+# Best effort: stack the three setup shortcuts in the top-right corner of the desktop.
+# Runs in the background from FirstLogon and waits for Explorer to show the desktop.
+$names = @( '1 - Install apps'; '2 - Steam games'; '3 - Dev tools'; );
+
+Add-Type -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+
+public static class DeskIcons {
+	[StructLayout(LayoutKind.Sequential)]
+	public struct RECT { public int Left, Top, Right, Bottom; }
+
+	[DllImport("user32.dll")] public static extern bool SetProcessDPIAware();
+	[DllImport("user32.dll", CharSet = CharSet.Unicode)] public static extern IntPtr FindWindow(string cls, string title);
+	[DllImport("user32.dll", CharSet = CharSet.Unicode)] public static extern IntPtr FindWindowEx(IntPtr parent, IntPtr after, string cls, string title);
+	[DllImport("user32.dll")] public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+	[DllImport("user32.dll")] public static extern int GetWindowLong(IntPtr hWnd, int index);
+	[DllImport("user32.dll")] public static extern int SetWindowLong(IntPtr hWnd, int index, int value);
+	[DllImport("user32.dll")] public static extern bool GetClientRect(IntPtr hWnd, out RECT rect);
+	[DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint pid);
+	[DllImport("kernel32.dll")] public static extern IntPtr OpenProcess(uint access, bool inherit, uint pid);
+	[DllImport("kernel32.dll")] public static extern bool CloseHandle(IntPtr handle);
+	[DllImport("kernel32.dll")] public static extern IntPtr VirtualAllocEx(IntPtr proc, IntPtr addr, UIntPtr size, uint type, uint protect);
+	[DllImport("kernel32.dll")] public static extern bool VirtualFreeEx(IntPtr proc, IntPtr addr, UIntPtr size, uint type);
+	[DllImport("kernel32.dll")] public static extern bool WriteProcessMemory(IntPtr proc, IntPtr addr, byte[] buf, UIntPtr size, out UIntPtr written);
+	[DllImport("kernel32.dll")] public static extern bool ReadProcessMemory(IntPtr proc, IntPtr addr, byte[] buf, UIntPtr size, out UIntPtr read);
+	[DllImport("shell32.dll", CharSet = CharSet.Unicode)] public static extern void SHChangeNotify(int evt, uint flags, string item1, IntPtr item2);
+}
+'@;
+
+[void][DeskIcons]::SetProcessDPIAware();
+
+function Get-DesktopListView {
+	$defView = [IntPtr]::Zero;
+	$progman = [DeskIcons]::FindWindow( 'Progman', $null );
+	if( $progman -ne [IntPtr]::Zero ) {
+		$defView = [DeskIcons]::FindWindowEx( $progman, [IntPtr]::Zero, 'SHELLDLL_DefView', $null );
+	}
+	$w = [IntPtr]::Zero;
+	while( $defView -eq [IntPtr]::Zero ) {
+		$w = [DeskIcons]::FindWindowEx( [IntPtr]::Zero, $w, 'WorkerW', $null );
+		if( $w -eq [IntPtr]::Zero ) { break; }
+		$defView = [DeskIcons]::FindWindowEx( $w, [IntPtr]::Zero, 'SHELLDLL_DefView', $null );
+	}
+	if( $defView -eq [IntPtr]::Zero ) { return [IntPtr]::Zero; }
+	return [DeskIcons]::FindWindowEx( $defView, [IntPtr]::Zero, 'SysListView32', $null );
+}
+
+function Set-IconPositions {
+	param( [IntPtr] $ListView, [uint32] $ProcessId );
+
+	$process = [DeskIcons]::OpenProcess( 0x38, $false, $ProcessId );
+	if( $process -eq [IntPtr]::Zero ) { return $false; }
+	$remote = [DeskIcons]::VirtualAllocEx( $process, [IntPtr]::Zero, [UIntPtr]4096, 0x3000, 0x04 );
+	try {
+		# Turn off auto-arrange (LVS_AUTOARRANGE) so positions can be set.
+		$style = [DeskIcons]::GetWindowLong( $ListView, -16 );
+		[void][DeskIcons]::SetWindowLong( $ListView, -16, ( $style -band -bnot 0x100 ) );
+
+		$rect = New-Object 'DeskIcons+RECT';
+		[void][DeskIcons]::GetClientRect( $ListView, [ref] $rect );
+		$spacing = [int64][DeskIcons]::SendMessage( $ListView, 0x1033, [IntPtr]::Zero, [IntPtr]::Zero );
+		$cx = $spacing -band 0xFFFF;
+		$cy = ( $spacing -shr 16 ) -band 0xFFFF;
+		$x = $rect.Right - $cx;
+
+		$count = [int][DeskIcons]::SendMessage( $ListView, 0x1004, [IntPtr]::Zero, [IntPtr]::Zero );
+		$found = 0;
+		for( $i = 0; $i -lt $count; $i++ ) {
+			# LVITEMW (x64): iSubItem at 8, pszText at 24, cchTextMax at 32.
+			$item = New-Object 'byte[]' 64;
+			[BitConverter]::GetBytes( [int64] $remote.ToInt64() + 512 ).CopyTo( $item, 24 );
+			[BitConverter]::GetBytes( [int] 260 ).CopyTo( $item, 32 );
+			$written = [UIntPtr]::Zero;
+			[void][DeskIcons]::WriteProcessMemory( $process, $remote, $item, [UIntPtr]64, [ref] $written );
+			[void][DeskIcons]::SendMessage( $ListView, 0x1073, [IntPtr] $i, $remote );
+			$text = New-Object 'byte[]' 520;
+			$read = [UIntPtr]::Zero;
+			[void][DeskIcons]::ReadProcessMemory( $process, [IntPtr]( $remote.ToInt64() + 512 ), $text, [UIntPtr]520, [ref] $read );
+			$name = [System.Text.Encoding]::Unicode.GetString( $text ).Split( [char]0 )[0];
+
+			$row = [array]::IndexOf( $names, $name );
+			if( $row -ge 0 ) {
+				$y = $row * $cy;
+				$lParam = [IntPtr]( ( $y -shl 16 ) -bor ( $x -band 0xFFFF ) );
+				[void][DeskIcons]::SendMessage( $ListView, 0x100F, [IntPtr] $i, $lParam );
+				$found++;
+			}
+		}
+		return ( $found -eq $names.Count );
+	} finally {
+		[void][DeskIcons]::VirtualFreeEx( $process, $remote, [UIntPtr]::Zero, 0x8000 );
+		[void][DeskIcons]::CloseHandle( $process );
+	}
+}
+
+$deadline = [datetime]::Now.AddMinutes( 6 );
+$placed = @{};
+while( [datetime]::Now -lt $deadline ) {
+	try {
+		[DeskIcons]::SHChangeNotify( 0x1000, 0x5, 'C:\Users\Public\Desktop', [IntPtr]::Zero );
+		$lv = Get-DesktopListView;
+		if( $lv -ne [IntPtr]::Zero ) {
+			$explorerPid = [uint32] 0;
+			[void][DeskIcons]::GetWindowThreadProcessId( $lv, [ref] $explorerPid );
+			# Redo it whenever Explorer restarts (first-logon scripts restart it once).
+			if( -not $placed.ContainsKey( $explorerPid ) ) {
+				if( Set-IconPositions -ListView $lv -ProcessId $explorerPid ) {
+					$placed[ $explorerPid ] = $true;
+					Start-Sleep -Seconds 60;
+					continue;
+				}
+			}
+		}
+	} catch {
+		$_ | Out-String | Write-Warning;
+	}
+	Start-Sleep -Seconds 3;
+}
+		</File>
 		<File path="C:\Windows\Setup\Scripts\Specialize.ps1">
 $scripts = @(
 	{
@@ -906,10 +1117,22 @@ $scripts = @(
 		Set-ItemProperty -LiteralPath 'Registry::HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'AutoLogonCount' -Type 'DWord' -Force -Value 0;
 	};
 	{
+		&amp; 'C:\Windows\Setup\Scripts\CopySetupFiles.ps1';
+	};
+	{
+		&amp; 'C:\Windows\Setup\Scripts\CreateSetupShortcuts.ps1';
+	};
+	{
+		Start-Process -FilePath 'powershell.exe' -ArgumentList '-WindowStyle Hidden -NoProfile -ExecutionPolicy Unrestricted -File "C:\Windows\Setup\Scripts\PlaceDesktopIcons.ps1"';
+	};
+	{
 		&amp; 'C:\Windows\Setup\Scripts\VBoxGuestAdditions.ps1';
 	};
 	{
 		&amp; 'C:\Windows\Setup\Scripts\VMwareTools.ps1';
+	};
+	{
+		&amp; 'C:\Windows\Setup\Scripts\InstallWinget.ps1';
 	};
 	{
 		&amp; 'C:\Windows\Setup\Scripts\unattend-03.ps1';
